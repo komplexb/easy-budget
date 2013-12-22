@@ -1,7 +1,7 @@
 'use strict';
 var totalIncome = 0; //chart values
 var totalExpense = 0; //chart values
-var appState = 'INCOME'; // default state: '', INCOME or EXPENSE
+var appState = ''; // default state: '', INCOME or EXPENSE
  
 $(document).foundation(); //initialize foundation
 
