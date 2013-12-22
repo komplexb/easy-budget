@@ -107,11 +107,7 @@ $(function() {
  */
  $('#edit-income').click(function() {
  	disableIncomeModal = ($('#no-show-income-modal-again').prop('checked')) ? true : false;
- 	$('#income-panel button').prop('disabled',false); 	
- 	/*
-	 activeIncomeColumn = true;
-		  activeExpenseColumn = false;*/
-	 		
+ 	$('#income-panel button').prop('disabled',false); 
  	$('#income-modal').foundation('reveal', 'close'); //close panel 	
  	$('#income-panel').addClass('callout'); //highlight it as active
  	$('#income-panel').find('*').prop("disabled", false);  //enable income panel elements
@@ -127,10 +123,6 @@ $(function() {
  $('#edit-expense').click(function() { 	
  	disableExpenseModal = ($('#no-show-expense-modal-again').prop('checked')) ? true : false;
  	$('#expense-panel button').prop('disabled',false);
- 	/*
-	 activeIncomeColumn = false;
-		  activeExpenseColumn = true;*/
-	 
  	$('#expense-modal').foundation('reveal', 'close'); //close panel 	
  	$('#expense-panel').addClass('callout'); //highlight it as active
  	$('#expense-panel').find('*').prop("disabled", false);  //enable expense panel elements
