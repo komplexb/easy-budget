@@ -28,7 +28,7 @@ button.mini, .button.mini {
 .item-list-container {
 	height: 164px;
 	overflow-x: auto;
-	width: 271px;
+	width: 100%;
 }
 td[contenteditable='true'] {
 	cursor: text;
@@ -155,4 +155,19 @@ td[contenteditable='true'] {
 }
 .orbit-container .orbit-slides-container > * .orbit-caption {
 	display: none;
+}
+@media only screen {
+	[class*="column"] + [class*="column"]:last-child {
+		float: left;
+	}
+	
+	.small-4 {
+    	position: relative;
+    	width: 333px; 
+	}
+}
+@media only screen and (min-width: 40.063em) {
+	[class*="column"] + [class*="column"]:last-child {
+		float: left;
+	}
 }
