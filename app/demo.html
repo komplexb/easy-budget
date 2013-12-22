@@ -1,0 +1,264 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app='easyBudget'>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Easy Budget | Angular Demo</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css" />
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css" />
+    <script src="js/modernizr.js"></script>    
+    
+  </head>
+  <body>
+    
+<nav class="top-bar" data-topbar>
+	<ul class="title-area">
+		<li class="name">
+		  <h1><a href='#'><b>Easy Budget</b></a></h1>
+		</li>
+	</ul>
+	<section class="top-bar-section">
+		<!-- Left Nav Section -->
+		<ul class="right">
+		  <li class="divider"></li>
+		  <li><a href="#" data-reveal-id='how-to-budget'>How to Budget</a></li>
+		  <li class="divider"></li>
+		  <li><a href="#" data-reveal-id='how-to-use-this-app'>How to use this app</a></li>
+		</ul>
+		<div id="how-to-budget" class="reveal-modal small" data-reveal>
+  			<h2>How to Budget</h2>
+			<ul class="example-orbit" data-orbit>
+			  <li>
+				<img src="img/budget1.png" alt="slide 1" />
+				<div class="orbit-caption">
+				  The Most Important Thing! 
+				  Spend Less Than You Earn!
+				</div>
+			  </li>
+			  <li>
+				<img src="img/budget2.png" alt="slide 1" />
+				<div class="orbit-caption">
+				  Live Frugal!
+				</div>
+			  </li>
+			  <li>
+				<img src="img/budget3.png" alt="slide 1" />
+				<div class="orbit-caption">
+				  Earn More!
+				</div>
+			  </li>
+			  <li>
+				<img src="img/budget4.png" alt="slide 1" />
+				<div class="orbit-caption">
+				  Manage Money!
+				</div>
+			  </li>
+			  <li>
+				<img src="img/budget5.png" alt="slide 1" />
+				<div class="orbit-caption">
+				  Control Your Own Destiny!
+				</div>
+			  </li>
+		  	</ul>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
+		<div id="how-to-use-this-app" class="reveal-modal small" data-reveal>
+  			<h2>How to Use this App</h2>
+  			<ul>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+				<li>Suspendisse a lectus imperdiet, sodales risus nec, sodales nunc.</li>
+				<li>Nunc volutpat eros laoreet sodales dapibus.</li>
+			</ul>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
+  </section>
+</nav>    
+<br/>
+<div class="row">
+  <div class="small-4 large-4 columns">
+    <div id='income-panel' class='panel main-panels' ng-controller='IncomeCtrl' ng-class="{'callout':isAppState('INCOME')}">
+	    <a href="#" class="button radius success expand" data-reveal-id="income-modal" id='trigger-income-modal'>    	
+	    	<span class='button-large-icon fi-dollar-bill'></span>
+	    	<span class='button-large-icon fi-dollar'></span>    	
+	    	
+	    	<span class='button-caption fi-arrow-down'>Income </span>
+		</a>
+		<div id="income-modal" class="small reveal-modal" data-reveal>
+			<div class="row">
+	  			<div class="large-8 columns">
+					<h2>Income</h2>
+			          <p class="lead">Use this to track money you made, like:</p>
+			          <ul>
+			              <li>salary</li>
+			              <li>tips</li>
+			              <li>gifts</li>
+			              <li>government subsidy</li>
+			          </ul>
+			          <br>
+			         <!--
+					  <label for='no-show-income-modal-again'>
+										   <input type='checkbox' id='no-show-income-modal-again'>
+										   Don't tell me this message again
+										 </label>-->
+					 
+				</div>
+				<div class="large-4 columns text-center income-icon-column">
+					<span class='button-medium-icon fi-dollar-bill'></span><br>
+			    	<span class='button-medium-icon fi-dollar'></span><br>    	
+			    	<span class='button-medium-icon fi-arrow-down'></span><br><br>
+			    	<a href="#"id='edit-income' ng-click='enableIncomeState()' class="tiny radius success button">Ok</a>
+				</div>
+			</div>
+			<a class="close-reveal-modal">&#215; Cancel This</a>
+		</div>
+	    
+	    <br>    
+	    <label>How much money did you get?</label>
+	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeValue' id='add-income-value' type='number' placeholder='0.00' >
+	    
+	    <label>What did you do to get it?</label>
+	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeDesc' id='add-income-desc' type='text' placeholder='Income' >
+	
+	    <div ng-switch on='showUpdate'>
+		    <button ng-disabled="!isAppState('INCOME')" ng-switch-default ng-click='addIncome()' id='add-income' class='expand radius'>Add</button>
+		    <button ng-switch-when='true' ng-click='updateIncome()' class='expand radius'>Update</button>
+	    </div>
+	    
+	    <div class='item-list-container'>
+		<table id='income-list' class='item-list-tables'>		
+			<tbody>
+				<tr ng-repeat='incomeEntry in incomeArr'>
+					<td>{{incomeEntry.desc}}</td>
+					<td class='value-column'>{{incomeEntry.value}}</td>				
+					<td>
+						<button ng-disabled="!isAppState('INCOME')" ng-click='editIncome($index)' class='mini radius edit-this-item fi-page-edit secondary' title='Edit this entry'></button>
+						&nbsp;
+						<button ng-disabled="!isAppState('INCOME')" ng-click='deleteIncome($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
+					</td>
+				</tr>			
+			</tbody>
+		</table>
+		</div>
+		<br>
+	    <div id='income-alert-box' ng-show='isUndoDeleteIncome' data-alert class="alert-box warning text-center">
+		  <a href='#' class='undo-delete' ng-click='undoDeleteIncome()' >
+		  	<span class='button-mini-icon fi-alert'></span>
+		  	<b> Put it back?</b>
+		  </a>
+		  <a href="#" class="close">&times;</a>
+		</div>
+    </div>
+    
+  </div>
+  <div class="small-4 large-4 columns">
+    <div id='expense-panel' class='panel main-panels' ng-controller='ExpenseCtrl' ng-class="{'callout':isAppState('EXPENSE')}">
+    <a href="#" class="button radius alert expand"  data-reveal-id="expense-modal" id='trigger-expense-modal'>
+    	<span class='button-large-icon fi-dollar-bill'></span>
+    	<span class='button-large-icon fi-dollar'></span>
+    	<span class='button-caption fi-arrow-up'>Expenses </span>    	
+    </a>
+    <div id="expense-modal" class="small reveal-modal" data-reveal>
+	  <div class="row">
+  		  <div class="large-8 columns">
+			  <h2>Expenses</h2>
+			  <p class="lead">Use this to track money you spent, like:</p>
+			  <ul>
+			  	<li>bus fare</li>
+			  	<li>taxi fare</li>
+			  	<li>grocery</li>
+			  	<li>movies</li>
+			  </ul>
+			  <!--
+			  <label for='no-show-expense-modal-again'>
+								<input type='checkbox' id='no-show-expense-modal-again'>
+								Don't tell me this message again
+							  </label>-->
+			  
+	  	  </div>
+	  	  <div class="large-4 columns text-center expense-icon-column">
+				<span class='button-medium-icon fi-arrow-up'></span><br>				
+		    	<span class='button-medium-icon fi-dollar'></span><br>	
+		    	<span class='button-medium-icon fi-dollar-bill'></span><br>	    	
+		    	<a href="#" id='edit-expense' class="tiny radius success button" ng-click='enableExpenseState()'>Ok</a>
+			</div>	  
+	  <a class="close-reveal-modal">&#215; Cancel This</a>
+	</div>
+	</div>
+    <br>
+    <label>How much money did you use?</label>
+    <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseValue' id='add-expense-value' type='number' placeholder='0.00' size='3'>
+    
+    <label>What did you use it to do?</label>
+    <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseDesc' id='add-expense-desc' type='text' placeholder='Expense' size='10'>        
+    
+    <div ng-switch on='showUpdate'>
+		<button ng-disabled="!isAppState('EXPENSE')" ng-switch-default ng-click='addExpense()' id='add-expense' class='expand radius'>Add</button>
+		<button ng-switch-when='true' ng-click='updateExpense()' class='expand radius'>Update</button>
+	</div>
+   
+	    <div class='item-list-container'>
+			<table id='expense-list' class='item-list-tables'>		
+				<tbody>
+					<tr ng-repeat='expenseEntry in expenseArr'>
+						<td>{{expenseEntry.desc}}</td>
+						<td class='value-column'>{{expenseEntry.value}}</td>				
+						<td>
+							<button ng-disabled="!isAppState('EXPENSE')" ng-click='editExpense($index)' class='mini radius edit-this-item fi-page-edit secondary' title='Edit this entry'></button>
+							&nbsp;
+							<button ng-disabled="!isAppState('EXPENSE')" ng-click='deleteExpense($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
+						</td>
+					</tr>					
+				</tbody>
+			</table>
+		</div>
+		<br>
+		<div id='expense-alert-box' ng-show='isUndoDeleteExpense' data-alert class="alert-box warning right-align">
+		  <a href='#' class='undo-delete' ng-click='undoDeleteExpense()' >
+		  	<span class='button-small-icon fi-alert'></span>
+		  	<b> Put it back?</b>
+		  </a>
+		  <a href="#" class="close">&times;</a>
+		</div>
+    </div>
+    
+  </div>
+  <div class="small-4 large-4 columns">
+	 <dl class="accordion" data-accordion> 
+	 	<dd>
+	 		<a href="#panel1" class=''>
+				<span class='fi-graph-pie button-mini-icon'></span>
+				 Show Budget Graph >				
+			</a>
+	 		<div id="panel1" class="content active" ng-controller='BudgetNotificationsCtrl'>
+		 		<div id='chart_div'>
+			      Chart
+			    </div>
+				<div data-alert class="alert-box text-center" ng-class='alertBoxClass' id='budget-notifications'>				 	
+					 <span id='budget-notifications-icon' class='button-mini-icon' ng-class='budgetNotificationsIcon'> </span>
+					 <span id='budget-notifications-message'> {{budgetNotifcationsMessage}}</span>				 	
+				</div>
+			</div>		    
+	 	</dd>		  	
+	</dl>
+    
+  </div>
+</div>
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <!--<script src="js/general.js"></script>-->   
+    
+    <script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-route.js"></script>
+	<script src="js/mvc/app.js"></script>
+	<script src="js/mvc/services.js"></script>
+	<script src="js/mvc/controllers.js"></script>
+	<script src="js/mvc/filters.js"></script>
+	<!--<script src="js/mvc/directives.js"></script>--> 
+  </body>
+</html>
