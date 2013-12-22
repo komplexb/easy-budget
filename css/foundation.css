@@ -293,9 +293,11 @@ select {
     position: relative;
     width: 25%; }
 
+  /*
   .small-4 {
-    position: relative;
-    width: 33.33333%; }
+      position: relative;
+      width: 33.33333%; }*/
+  
 
   .small-5 {
     position: relative;
@@ -373,8 +375,10 @@ select {
     position: relative;
     margin-left: 83.33333%; }
 
+  /*
   [class*="column"] + [class*="column"]:last-child {
-    float: right; }
+      float: right; }*/
+  
 
   [class*="column"] + [class*="column"].end {
     float: left; }
@@ -605,8 +609,10 @@ select {
     position: relative;
     margin-left: 83.33333%; }
 
+  /*
   [class*="column"] + [class*="column"]:last-child {
-    float: right; }
+      float: right; }*/
+  
 
   [class*="column"] + [class*="column"].end {
     float: left; }
